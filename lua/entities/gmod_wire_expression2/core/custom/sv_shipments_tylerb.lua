@@ -12,6 +12,7 @@
 AddCSLuaFile("cl_shipments_tylerb.lua") -- pretty sure wire does it already but just to be safe...
 
 local shipments = CustomShipments
+
 local broken = 
 	{
 		amount		=	-1,
@@ -47,14 +48,18 @@ e2function string entity:shipmentName()
 	return getTable(this).name
 end
 
-e2function string entity:isShipment()
-	if not IsValid(this) then return false end
-	if this:GetClass() == "spawned_shipment" then return true end
-	return false
+e2function normal entity:isShipment()
+	if not IsValid(this) then return 0 end
+	if this:GetClass() == "spawned_shipment" then return 1 end
+	return 0
 end
 
 e2function string entity:shipmentType()
 	return getTable(this).entity
+end
+
+e2function normal entity:shipmentSize()
+	return getTable(this).amount
 end
 
 e2function normal entity:shipmentAmount()

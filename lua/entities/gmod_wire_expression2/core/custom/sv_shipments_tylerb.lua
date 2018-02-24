@@ -21,16 +21,15 @@ local broken =
 		noship		=	false,
 		entity		=	"invalid_shipment",
 		model		=	"models/error.mdl",
-		seperate	=	false,
+		separate	=	false,
 		name		=	"Invalid Shipment",
 	}
 
 local function getTable(ent)
-	if not IsValid(ent) then return broken end
-	if ent:GetClass() != "spawned_shipment" then return broken end
+	-- usually we would do validity checks, but we added support for string identifiers.
 	
 	for k,v in ipairs(shipments) do
-		if k == ent:Getcontents() then
+		if (IsEntity(ent) and (v.entity == ent:GetClass() or (ent.Getcontents and k == ent:Getcontents()) or (ent.GetWeaponClass and v.entity == ent:GetWeaponClass()))) or (not IsEntity(ent) and (v.entity == ent or v.name == ent)) then
 			return v
 		end
 	end
@@ -45,9 +44,17 @@ local function getCount(ent)
 	return ent:Getcount()
 end
 
+--------
+
 e2function string entity:shipmentName()
 	return getTable(this).name
 end
+
+e2function string shipmentName(str) -- if you have the class or something
+	return getTable(str).name
+end
+
+----
 
 e2function normal entity:isShipment()
 	if not IsValid(this) then return 0 end
@@ -55,32 +62,94 @@ e2function normal entity:isShipment()
 	return 0
 end
 
+----
+
 e2function string entity:shipmentType()
 	return getTable(this).entity
 end
 
-e2function normal entity:shipmentSize()
+e2function string shipmentType(str)
+	return getTable(str).entity
+end
+
+----
+
+e2function string entity:shipmentClass() -- alias of shipmentType()
+	return getTable(this).entity
+end
+
+e2function string shipmentClass(str)
+	return getTable(str).entity
+end
+
+----
+
+e2function normal entity:shipmentSize() -- size of orig shipment
 	return getTable(this).amount
 end
 
-e2function normal entity:shipmentAmount()
-	return getCount(this) -- it's a different function!
+e2function normal shipmentSize(str) -- size of orig shipment
+	return getTable(str).amount
 end
+
+----
+
+e2function normal entity:shipmentAmount() -- remaining in current shipment
+	return getCount(this)
+end
+
+-- note: we do not need a string version of this, that would be useless.
+
+----
 
 e2function string entity:shipmentModel()
 	return getTable(this).model
 end
 
+e2function string shipmentModel(str)
+	return getTable(str).model
+end
+
+----
+
 e2function normal entity:shipmentPrice()
 	return (getTable(this).price) and getTable(this).price or 0
 end
 
-e2function normal entity:shipmentSeperate()
-	return getTable(this).seperate and 1 or 0
+e2function normal shipmentPrice(str)
+	return (getTable(str).price) and getTable(str).price or 0
 end
+
+----
+
+e2function normal entity:shipmentSeparate()
+	return getTable(this).separate and 1 or 0
+end
+
+e2function normal shipmentSeparate(str)
+	return getTable(str).separate and 1 or 0
+end
+
+-- add a misspelled version just to cover our bases
+
+e2function normal entity:shipmentSeperate()
+	return getTable(this).separate and 1 or 0
+end
+
+e2function normal shipmentSeperate(str)
+	return getTable(str).separate and 1 or 0
+end
+
+----
 
 e2function normal entity:shipmentPriceSep()
 	return (getTable(this).pricesep) and getTable(this).pricesep or 0
 end
+
+e2function normal shipmentPriceSep(str)
+	return (getTable(str).pricesep) and getTable(str).pricesep or 0
+end
+
+--------
 
 print("Loaded TylerB's shipment e2 functions.")

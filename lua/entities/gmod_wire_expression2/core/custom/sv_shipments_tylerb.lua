@@ -50,7 +50,7 @@ e2function string entity:shipmentName()
 	return getTable(this).name
 end
 
-e2function string shipmentName(str) -- if you have the class or something
+e2function string shipmentName(string str) -- if you have the class or something
 	return getTable(str).name
 end
 
@@ -68,7 +68,7 @@ e2function string entity:shipmentType()
 	return getTable(this).entity
 end
 
-e2function string shipmentType(str)
+e2function string shipmentType(string str)
 	return getTable(str).entity
 end
 
@@ -78,7 +78,7 @@ e2function string entity:shipmentClass() -- alias of shipmentType()
 	return getTable(this).entity
 end
 
-e2function string shipmentClass(str)
+e2function string shipmentClass(string str)
 	return getTable(str).entity
 end
 
@@ -88,7 +88,7 @@ e2function normal entity:shipmentSize() -- size of orig shipment
 	return getTable(this).amount
 end
 
-e2function normal shipmentSize(str) -- size of orig shipment
+e2function normal shipmentSize(string str) -- size of orig shipment
 	return getTable(str).amount
 end
 
@@ -106,7 +106,7 @@ e2function string entity:shipmentModel()
 	return getTable(this).model
 end
 
-e2function string shipmentModel(str)
+e2function string shipmentModel(string str)
 	return getTable(str).model
 end
 
@@ -116,7 +116,7 @@ e2function normal entity:shipmentPrice()
 	return (getTable(this).price) and getTable(this).price or 0
 end
 
-e2function normal shipmentPrice(str)
+e2function normal shipmentPrice(string str)
 	return (getTable(str).price) and getTable(str).price or 0
 end
 
@@ -126,7 +126,7 @@ e2function normal entity:shipmentSeparate()
 	return getTable(this).separate and 1 or 0
 end
 
-e2function normal shipmentSeparate(str)
+e2function normal shipmentSeparate(string str)
 	return getTable(str).separate and 1 or 0
 end
 
@@ -136,7 +136,7 @@ e2function normal entity:shipmentSeperate()
 	return getTable(this).separate and 1 or 0
 end
 
-e2function normal shipmentSeperate(str)
+e2function normal shipmentSeperate(string str)
 	return getTable(str).separate and 1 or 0
 end
 
@@ -146,7 +146,7 @@ e2function normal entity:shipmentPriceSep()
 	return (getTable(this).pricesep) and getTable(this).pricesep or 0
 end
 
-e2function normal shipmentPriceSep(str)
+e2function normal shipmentPriceSep(string str)
 	return (getTable(str).pricesep) and getTable(str).pricesep or 0
 end
 

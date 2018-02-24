@@ -9,7 +9,7 @@
 --             |_|                 by TylerB.       --
 ------------------------------------------------------
 
-AddCSLuaFile("cl_shipments_tylerb.lua") -- pretty sure wire does it already but just to be safe...
+-- AddCSLuaFile("cl_shipments_tylerb.lua") -- pretty sure wire does it already but just to be safe...
 
 local shipments = CustomShipments
 
@@ -17,6 +17,7 @@ local broken =
 	{
 		amount		=	-1,
 		price		=	-1,
+		pricesep	=	-1,
 		noship		=	false,
 		entity		=	"invalid_shipment",
 		model		=	"models/error.mdl",
@@ -71,7 +72,15 @@ e2function string entity:shipmentModel()
 end
 
 e2function normal entity:shipmentPrice()
-	return getTable(this).price
+	return (getTable(this).price) and getTable(this).price or 0
+end
+
+e2function normal entity:shipmentSeperate()
+	return getTable(this).seperate and 1 or 0
+end
+
+e2function normal entity:shipmentPriceSep()
+	return (getTable(this).pricesep) and getTable(this).pricesep or 0
 end
 
 print("Loaded TylerB's shipment e2 functions.")

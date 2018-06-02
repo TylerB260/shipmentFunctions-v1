@@ -28,6 +28,10 @@ local broken =
 local function getTable(ent)
 	-- usually we would do validity checks, but we added support for string identifiers.
 	
+	if not IsValid(ent) or ent == nil or ent == NULL then
+		return broken
+	end
+	
 	for k,v in ipairs(shipments) do
 		if (IsEntity(ent) and (v.entity == ent:GetClass() or (ent.Getcontents and k == ent:Getcontents()) or (ent.GetWeaponClass and v.entity == ent:GetWeaponClass()))) or (not IsEntity(ent) and (string.lower(v.entity) == string.lower(ent) or string.lower(v.name) == string.lower(ent))) then
 			return v
